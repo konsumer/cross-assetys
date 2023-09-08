@@ -1,0 +1,1 @@
+This is an experiment with emscripten-compiled web-host + native-host, sharing code to read files from a zip file.

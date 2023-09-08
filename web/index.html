@@ -1,0 +1,19 @@
+<head>
+  <title>zip demo</title>
+</head>
+<body>
+  <h1>look at the console</h1>
+
+<script type="module">
+import Test from './runtime.mjs'
+
+const host = await Test({
+  arguments: ["test.zip"],
+  preRun({ FS }) {
+    FS.createPreloadedFile('/', 'test.zip', 'test.zip', true, false)
+  }
+})
+
+</script>
+
+</body>
