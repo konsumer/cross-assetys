@@ -36,19 +36,12 @@ const host = await Test({
   preRun({ FS }) {
     FS.createPreloadedFile('/', 'test.zip', 'test.zip', true, false)
 
-    function stdin() {}
-
-    function stdout(asciiCode) {
+    function out(asciiCode) {
       window.stdout.value += String.fromCharCode(asciiCode)
       window.stdout.scrollTop =  window.stdout.scrollHeight
     }
 
-    function stderr(asciiCode) {
-      window.stdout.value += String.fromCharCode(asciiCode)
-      window.stdout.scrollTop =  window.stdout.scrollHeight
-    }
-
-    FS.init(stdin, stdout, stderr);
+    FS.init(() => null, out, out);
   }
 })
 
