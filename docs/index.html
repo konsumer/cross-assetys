@@ -1,8 +1,32 @@
 <head>
   <title>zip demo</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      background: #000;
+      color: #fff;
+    }
+    body {
+      display: flex;
+      gap: 2em;
+    }
+    textarea {
+      width: 100%;
+      background: #000;
+      color: #fff;
+    }
+    h1 {
+      text-align: right;
+    }
+    body > * {
+      flex: 1;
+    }
+  </style>
 </head>
 <body>
-  <h1>look at the console</h1>
+  <h1>Assetsys Example:</h1>
+
+<textarea id="stdout" cols="30" rows="10"></textarea>
 
 <script type="module">
 import Test from './runtime.mjs'
@@ -11,6 +35,20 @@ const host = await Test({
   arguments: ["test.zip"],
   preRun({ FS }) {
     FS.createPreloadedFile('/', 'test.zip', 'test.zip', true, false)
+
+    function stdin() {}
+
+    function stdout(asciiCode) {
+      window.stdout.value += String.fromCharCode(asciiCode)
+      window.stdout.scrollTop =  window.stdout.scrollHeight
+    }
+
+    function stderr(asciiCode) {
+      window.stdout.value += String.fromCharCode(asciiCode)
+      window.stdout.scrollTop =  window.stdout.scrollHeight
+    }
+
+    FS.init(stdin, stdout, stderr);
   }
 })
 
